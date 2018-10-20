@@ -4,13 +4,13 @@ Imports System.Data
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports Oracle.DataAccess.Client ' ODP.NET Oracle managed provider
 Imports Oracle.DataAccess.Types
-
-
+Imports System.Text
+Imports System.Data.OleDb
 
 Public Class Form1
 
-    Public ds As DataSet
-    Public dr As OracleDataReader
+	Public ds As DataSet
+	Public dr As OracleDataReader
 	Public Property AxisX As Object
 
 	'zmienna do Timer1
@@ -21,33 +21,59 @@ Public Class Form1
 	Dim p0 As Point
 	Dim p As Point
 
-
+	Dim ls As New List(Of String)
+	Private ReadOnly txtpathfile As Object
 
 	Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+		'TODO: Ten wiersz kodu wczytuje dane do tabeli 'DataSet2.FORMULA' . Możesz go przenieść lub usunąć.
+		'Me.FORMULATableAdapter.Fill(Me.DataSet2.FORMULA)
 
+
+
+		Dim header1 As ColumnHeader = New ColumnHeader()
+
+		header1.Text = "Logi"
+		header1.TextAlign = HorizontalAlignment.Left
+		header1.Width = 500 'ListView1.Width - 5
+		ListView1.Columns.Add(header1)
+
+		ListView1.View = 3
+		NumericUpDown1.Value = 1
+
+
+
+		If My.Computer.Network.IsAvailable() Then
+			Console.WriteLine("Network Connected")
+			ListView1.Items.Add("Network Connected" & Chr(13))
+		Else
+			Console.WriteLine("No Network")
+			ListView1.Items.Add("No Network" & Chr(13))
+		End If
 
 
 		Timer1.Interval = 1000
 		Timer1.Start() 'Timer starts functioning
+		ListView1.Items.Add("Czas start" & Chr(13))
 
-		Call Proc_22()
+		'Call Wykresy()
+		ListView1.Items.Add("Uruchom wykresy" & Chr(13))
 
+		SplitContainer1.Dock = DockStyle.Fill
+		SplitContainer2.Dock = DockStyle.Fill
 
-
-		'SplitContainer1.Dock = DockStyle.Fill
-		'SplitContainer2.Dock = DockStyle.Fill
-
-		'Label1.Dock = DockStyle.Top
-		'DataGridView1.Dock = DockStyle.Fill
-
-
-
-
-
+		Label1.Dock = DockStyle.Top
+		DataGridView1.Dock = DockStyle.Fill
 
 
 		SplitContainer2.Panel2.Visible = False
+
 		SplitContainer2.SplitterDistance = SplitContainer2.Height
+
+
+
+		'SplitContainer2.Panel1.Height = SplitContainer2.Height
+		'SplitContainer2.Panel2.Height = 0
+
 		CheckBox1.Text = "Wyświetl dane"
 
 		'Chart1.ChartAreas[0].AxisX.LabelStyle.Format = "yyyy-MM-dd";
@@ -69,40 +95,299 @@ Public Class Form1
 		Me.Chart1.ChartAreas(0).AxisX.LabelAutoFitStyle = True
 
 
+		Dim Serwer_FTP, Serwer_FTP_1 As String
+		Dim Login_FTP As String
+		Dim Haslo_FTP As String
+		Dim Folder_FTP As String
+		Dim Folder_Loc As String
+
+		Serwer_FTP_1 = "energaobrot.home.pl"
+		Serwer_FTP = "212.85.101.65"
+		Login_FTP = "oht_miernik_mocy@energaobrot.pl"
+		Haslo_FTP = "M13rN!k3n#rG@"
+		Folder_FTP = "/"
+		Folder_Loc = "c:\aaa\"
+
+		'wgrywanie plikow na FTP
+		'UploadFile(Serwer_FTP, Login_FTP, Haslo_FTP, Folder_FTP)
 
 
 		Dim ex As Exception
 		Dim ls As New List(Of String)
 
-		Dim Serwer_FTP As String
-		Dim Login_FTP As String
-		Dim Haslo_FTP As String
+		'pobranie listy plikow
+		ls = ListRemoteFiles("FTP://" & Serwer_FTP, Login_FTP, Haslo_FTP, ex)
 
-		Serwer_FTP = "ftp://energaobrot.home.pl"
-		Login_FTP = "oht_miernik_mocy@energaobrot.pl"
-		Haslo_FTP = "M13rN!k3n#rG@"
-
-		ls = ListRemoteFiles(Serwer_FTP, Login_FTP, Haslo_FTP, ex)
+		ListView1.Items.Add("Pobrano listę plików z FTP" & Chr(13))
+		Dim iq As Integer
 
 
+		If Not ls.Count = 0 Then
+			For iq = 0 To ls.Count - 1
+				ListView1.Items.Add(ls(iq) & Chr(13))
+			Next iq
+			ls.Sort()
 
-		'MsgBox(ex)
+
+			Dim temp_plik2 As String
+			temp_plik2 = ls(ls.Count - 1)
+			ListView1.Items.Add("Ostatni plik na FTP: " & temp_plik2 & Chr(13))
+
+			Dim temp_data2 As DateTime
+			temp_data2 = GetFtpServerDateTime(Serwer_FTP, Login_FTP, Haslo_FTP, Folder_FTP, temp_plik2)
+
+			Label1.Text = temp_plik2 & "      data    " & temp_data2
+			ListView1.Items.Add("Data pliku: " & temp_data2 & Chr(13))
+
+			'pobranie pliku
+			DownloadSingleFile("FTP://" & Serwer_FTP_1, Login_FTP, Haslo_FTP, temp_plik2, Folder_Loc, False, ex)
+
+			'wklejenie danych do viewdatagrid1
+
+			Dim SR As StreamReader = New StreamReader(Folder_Loc & temp_plik2)
+			Dim i As Long = 0
+			Dim line As String '= SR.ReadLine()
+			Dim strArray As String()
+			Dim dt As DataTable = New DataTable()
+			Dim row As DataRow
+
+
+
+
+			line = SR.ReadLine()
+			line = line.Replace(Chr(34), String.Empty)
+			strArray = line.Split(";"c)
+
+			For Each s As String In strArray
+				'test_str = Mid(s, 2, Len(s) - 2)
+				dt.Columns.Add(New DataColumn(s, GetType(String)))
+
+				'w razie co select case 
+				'	nazwa				 1,00    	string
+				'	2018-10-01 00:00	 2,00    	data
+				'	2018-10-02 00:00	 3,00    	data
+				'	2018-10-01 14:35	 4,00    	data
+				'	00:00:00:00:00:00-0	 5,00    	string
+				'	kW					 6,00    	string
+				'	0					 7,00    	long
+				'	0					 8,00    	long
+				'	0					 104,00    	long
+				'	2018-10-01 00:15	 105,00    	data
+				'	0					 106,00    	long
+				'	2018-10-01 00:15	 107,00    	data
+
+
+			Next
+
+			line = SR.ReadLine
+
+
+			Dim znak_cudzyslow = Chr(34)
+			Dim znak_srednik As Char = Chr(59)
+
+			Do While Not line = String.Empty
+				row = dt.NewRow()
+
+				line = line.Replace(Chr(34), String.Empty)
+				row.ItemArray = line.Split(";"c)
+				dt.Rows.Add(row)
+
+				line = SR.ReadLine
+
+			Loop 'While Not line = String.Empty
+
+			SR.Close()
+
+			SR.Dispose()
+
+			DataGridView2.DataSource = dt
+
+			With DataGridView2
+				'.AutoGenerateColumns = True
+				.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+				.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+				.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+			End With
+
+			DataGridView1.DataSource = dt
+
+
+		Else
+			MsgBox("Niestety nie zostały znalezione pliki na serwerze", MsgBoxStyle.Critical, "Błąd...")
+		End If
+
+
+
+
 
 	End Sub
 
+
+
+
+	Public Function ListRemoteFiles(ftpAddress As String,
+				ftpUser As String,
+					 ftpPassword As String,
+					 ByRef ExceptionInfo As Exception) As List(Of String)
+
+		Dim ListOfFilesOnFTPSite As New List(Of String)
+
+		Dim ftpRequest As FtpWebRequest = Nothing
+		Dim ftpResponse As FtpWebResponse = Nothing
+
+		Dim strReader As StreamReader = Nothing
+		Dim sline As String = ""
+
+		Try
+			ftpRequest = CType(WebRequest.Create(ftpAddress), FtpWebRequest)
+
+			With ftpRequest
+				.Credentials = New NetworkCredential(ftpUser, ftpPassword)
+				.Method = WebRequestMethods.Ftp.ListDirectory
+			End With
+
+			ftpResponse = CType(ftpRequest.GetResponse, FtpWebResponse)
+
+			strReader = New StreamReader(ftpResponse.GetResponseStream)
+
+			If strReader IsNot Nothing Then sline = strReader.ReadLine
+
+			While sline IsNot Nothing
+				ListOfFilesOnFTPSite.Add(sline)
+				sline = strReader.ReadLine
+			End While
+
+		Catch ex As Exception
+			ExceptionInfo = ex
+
+		Finally
+			If ftpResponse IsNot Nothing Then
+				ftpResponse.Close()
+				ftpResponse = Nothing
+			End If
+
+			If strReader IsNot Nothing Then
+				strReader.Close()
+				strReader = Nothing
+			End If
+		End Try
+
+		ListRemoteFiles = ListOfFilesOnFTPSite
+
+		ListOfFilesOnFTPSite = Nothing
+	End Function
+
+
+	Private Function GetFtpServerDateTime(ByVal ftpServer As String, ByVal username As String,
+									  ByVal password As String, ByVal folder As String, ByVal ftpFile As String) As Date
+
+		If Not LCase(Mid(ftpServer, 1, 3)) = "ftp" Then
+			ftpServer = "ftp://" & ftpServer
+		End If
+
+		If Not ftpServer.EndsWith("/") Then
+			ftpServer &= "/"
+		End If
+
+		If folder.Length > 1 Then
+			If Not folder.EndsWith("/") Then
+				folder &= "/"
+			End If
+		Else
+			folder = ""
+		End If
+		'MsgBox(ftpFile)
+
+		ftpFile = String.Concat(ftpServer, folder, ftpFile)
+
+
+		Dim request As System.Net.FtpWebRequest = System.Net.FtpWebRequest.Create(ftpFile)
+		Dim creds As New System.Net.NetworkCredential(username, password)
+		request.Credentials = creds
+		'request.Method = System.Net.WebRequestMethods.Ftp.UploadFile
+		request.Method = System.Net.WebRequestMethods.Ftp.GetDateTimestamp
+
+		Dim response As System.Net.FtpWebResponse = request.GetResponse
+
+		request = System.Net.FtpWebRequest.Create(ftpFile)
+		request.Credentials = creds
+		request.Method = System.Net.WebRequestMethods.Ftp.GetDateTimestamp
+		response = request.GetResponse
+
+		Return response.LastModified
+
+		response.Close()
+
+	End Function
+
+
+
+
+
+
+
+	Function DownloadSingleFile(ftpAddress As String,
+										  ftpUser As String,
+										  ftpPassword As String,
+										  fileToDownload As String,
+										  downloadTargetFolder As String,
+										  deleteAfterDownload As Boolean,
+										  ExceptionInfo As Exception) As Boolean
+
+		Dim FileDownloaded As Boolean = False
+
+		Try
+
+			Dim sFtpFile As String = ftpAddress & "/" & fileToDownload
+
+			Dim sTargetFileName = System.IO.Path.GetFileName(sFtpFile)
+			sTargetFileName = sTargetFileName.Replace("/", "\")
+			sTargetFileName = downloadTargetFolder & sTargetFileName
+
+			My.Computer.Network.DownloadFile(sFtpFile, sTargetFileName, ftpUser, ftpPassword)
+
+			If deleteAfterDownload Then
+				Dim ftpRequest As FtpWebRequest = Nothing
+
+				ftpRequest = CType(WebRequest.Create(sFtpFile), FtpWebRequest)
+
+				With ftpRequest
+					.Credentials = New NetworkCredential(ftpUser, ftpPassword)
+					.Method = WebRequestMethods.Ftp.DeleteFile
+				End With
+
+				Dim response As FtpWebResponse = CType(ftpRequest.GetResponse(), FtpWebResponse)
+				response.Close()
+
+				ftpRequest = Nothing
+
+				FileDownloaded = True
+
+			End If
+
+		Catch ex As Exception
+			ExceptionInfo = ex
+		End Try
+
+		Return FileDownloaded
+	End Function
+
+
+
+
 	Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-		LabelTimer.Text = DateTime.Now.ToString
+		Label3.Text = DateTime.Now.ToString
 
 		second = second + 1
 		If second >= 10 Then
 			Timer1.Stop() 'Timer stops functioning
-			MsgBox("Timer Stopped....")
+			ListView1.Items.Add("Czas stop ...")
 		End If
 
 	End Sub
 
 
-	Sub Proc_22()
+	Sub Wykresy()
 
 
 
@@ -280,9 +565,21 @@ Public Class Form1
 			'conn.Dispose()
 		End Try
 
-
 		Dim cmd As New OracleCommand
 		cmd.Connection = conn
+
+		If conn.State Then
+
+
+			Label2.Text = "Connection is Open"
+
+		Else
+
+			Label2.Text = "Connection is close"
+
+		End If
+
+
 
 
 
@@ -385,68 +682,37 @@ Public Class Form1
 			SplitContainer2.Panel2.Visible = False
 			SplitContainer2.SplitterDistance = SplitContainer2.Height
 			CheckBox1.Text = "Wyświetl dane"
+
+			'SplitContainer2.Panel1.Height = SplitContainer2.Height
+			'SplitContainer2.Panel2.Height = 0
+
+			SplitContainer2.Panel2Collapsed = True
+
 		Else
 			SplitContainer2.Panel2.Visible = True
 			SplitContainer2.SplitterDistance = SplitContainer2.Height / 2
 			CheckBox1.Text = "Ukryj dane"
+			'SplitContainer2.Panel1.Height = SplitContainer2.Height / 2
+			'SplitContainer2.Panel2.Height = SplitContainer2.Height / 2
+
+			SplitContainer2.Panel2Collapsed = False
+
 		End If
 	End Sub
 
 
-	Private Sub Chart1_MouseDown(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles Chart1.MouseDown
-		p0 = e.Location
-		x0 = Date.FromOADate(Chart1.ChartAreas(0).AxisX.PixelPositionToValue(e.X))
-		mouseIsDown = True
-	End Sub
-	Private Sub Chart1_MouseUp(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles Chart1.MouseUp
-		Dim x As DateTime = Date.FromOADate(Chart1.ChartAreas(0).AxisX.PixelPositionToValue(e.X))
-		'make sure x0 < x
-		If x0 > x Then
-			Dim xtemp As DateTime = x
-			x = x0
-			x0 = xtemp
-		End If
-
-		'do your maths by iterating the points collection
-
-		'rescale the chart...
-		With Me.Chart1.ChartAreas(0).AxisX
-			.Minimum = x0.ToOADate()
-			.Maximum = x.ToOADate()
-		End With
-
-		mouseIsDown = False
-		Chart1.Invalidate()
-
+	Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
+		ListView1.View = NumericUpDown1.Value
+		Label4.Text = ListView1.View.ToString
 	End Sub
 
-
-	Private Sub Chart1_MouseMove(sender As Object, e As MouseEventArgs) Handles Chart1.MouseMove
-		If mouseIsDown Then
-			p = e.Location
-			Chart1.Invalidate()
-		End If
+	Private Sub ListView1_TextChanged(sender As Object, e As EventArgs) Handles ListView1.TextChanged
+		ListView1.Items.Add(Chr(13))
+		Label4.Text = ListView1.View.ToString
 	End Sub
 
+	Private Sub FORMULABindingSource_CurrentChanged(sender As Object, e As EventArgs) Handles FORMULABindingSource.CurrentChanged
 
-
-
-	Private Sub Chart1_Paint(sender As Object, e As PaintEventArgs) Handles Chart1.Paint
-		If mouseIsDown Then
-			Dim sze As New Size(p.X - p0.X, p.Y - p0.Y)
-			e.Graphics.DrawRectangle(Pens.Black, New Rectangle(p0, sze))
-		End If
 	End Sub
-
-
-
-
-
-
-
-
-
-
-
 End Class
 
