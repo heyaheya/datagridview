@@ -23,12 +23,12 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
 		Me.components = New System.ComponentModel.Container()
-		Dim ChartArea11 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-		Dim Legend11 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-		Dim Series11 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-		Dim ChartArea12 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-		Dim Legend12 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-		Dim Series12 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+		Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+		Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+		Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+		Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+		Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+		Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
 		Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
 		Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
 		Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
@@ -44,20 +44,18 @@ Partial Class Form1
 		Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
 		Me.Label4 = New System.Windows.Forms.Label()
 		Me.DataGridView3 = New System.Windows.Forms.DataGridView()
-		Me.FORMULABindingSource = New System.Windows.Forms.BindingSource(Me.components)
-		Me.Button4 = New System.Windows.Forms.Button()
+		Me.DataSet1energy15miernikBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+		Me.DataSet1_energy15_miernik = New Mapa1.DataSet1_energy15_miernik()
 		Me.DataGridView1 = New System.Windows.Forms.DataGridView()
 		Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
 		Me.ListView1 = New System.Windows.Forms.ListView()
 		Me.DataGridView2 = New System.Windows.Forms.DataGridView()
 		Me.Label1 = New System.Windows.Forms.Label()
+		Me.FORMULABindingSource = New System.Windows.Forms.BindingSource(Me.components)
 		Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
 		Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-		Me.FORMULATableAdapter = New Mapa1.DataSet2TableAdapters.FORMULATableAdapter()
 		Me.DataSet1 = New Mapa1.DataSet1()
 		Me.DataSet1BindingSource = New System.Windows.Forms.BindingSource(Me.components)
-		Me.DataSet1_energy15_miernik = New Mapa1.DataSet1_energy15_miernik()
-		Me.DataSet1energy15miernikBindingSource = New System.Windows.Forms.BindingSource(Me.components)
 		CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -72,48 +70,48 @@ Partial Class Form1
 		Me.FlowLayoutPanel1.SuspendLayout()
 		CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.DataGridView3, System.ComponentModel.ISupportInitialize).BeginInit()
-		CType(Me.FORMULABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+		CType(Me.DataSet1energy15miernikBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+		CType(Me.DataSet1_energy15_miernik, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.TableLayoutPanel1.SuspendLayout()
 		CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+		CType(Me.FORMULABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.DataSet1, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.DataSet1BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-		CType(Me.DataSet1_energy15_miernik, System.ComponentModel.ISupportInitialize).BeginInit()
-		CType(Me.DataSet1energy15miernikBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'Chart1
 		'
-		ChartArea11.Name = "ChartArea1"
-		Me.Chart1.ChartAreas.Add(ChartArea11)
-		Legend11.Alignment = System.Drawing.StringAlignment.Center
-		Legend11.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom
-		Legend11.MaximumAutoSize = 10.0!
-		Legend11.Name = "Legend1"
-		Legend11.TitleSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.Line
-		Me.Chart1.Legends.Add(Legend11)
+		ChartArea3.Name = "ChartArea1"
+		Me.Chart1.ChartAreas.Add(ChartArea3)
+		Legend3.Alignment = System.Drawing.StringAlignment.Center
+		Legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom
+		Legend3.MaximumAutoSize = 10.0!
+		Legend3.Name = "Legend1"
+		Legend3.TitleSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.Line
+		Me.Chart1.Legends.Add(Legend3)
 		Me.Chart1.Location = New System.Drawing.Point(117, 3)
 		Me.Chart1.Name = "Chart1"
-		Series11.ChartArea = "ChartArea1"
-		Series11.Legend = "Legend1"
-		Series11.Name = "Series1"
-		Me.Chart1.Series.Add(Series11)
+		Series3.ChartArea = "ChartArea1"
+		Series3.Legend = "Legend1"
+		Series3.Name = "Series1"
+		Me.Chart1.Series.Add(Series3)
 		Me.Chart1.Size = New System.Drawing.Size(1223, 70)
 		Me.Chart1.TabIndex = 11
 		Me.Chart1.Text = "Chart1"
 		'
 		'Chart2
 		'
-		ChartArea12.Name = "ChartArea1"
-		Me.Chart2.ChartAreas.Add(ChartArea12)
-		Legend12.Name = "Legend1"
-		Me.Chart2.Legends.Add(Legend12)
+		ChartArea4.Name = "ChartArea1"
+		Me.Chart2.ChartAreas.Add(ChartArea4)
+		Legend4.Name = "Legend1"
+		Me.Chart2.Legends.Add(Legend4)
 		Me.Chart2.Location = New System.Drawing.Point(290, 3)
 		Me.Chart2.Name = "Chart2"
-		Series12.ChartArea = "ChartArea1"
-		Series12.Legend = "Legend1"
-		Series12.Name = "Series1"
-		Me.Chart2.Series.Add(Series12)
+		Series4.ChartArea = "ChartArea1"
+		Series4.Legend = "Legend1"
+		Series4.Name = "Series1"
+		Me.Chart2.Series.Add(Series4)
 		Me.Chart2.Size = New System.Drawing.Size(879, 240)
 		Me.Chart2.TabIndex = 12
 		Me.Chart2.Text = "Chart2"
@@ -149,12 +147,11 @@ Partial Class Form1
 		'
 		'SplitContainer2.Panel2
 		'
-		Me.SplitContainer2.Panel2.Controls.Add(Me.Button4)
 		Me.SplitContainer2.Panel2.Controls.Add(Me.DataGridView1)
 		Me.SplitContainer2.Panel2.Enabled = False
 		Me.SplitContainer2.Panel2MinSize = 0
 		Me.SplitContainer2.Size = New System.Drawing.Size(1511, 667)
-		Me.SplitContainer2.SplitterDistance = 570
+		Me.SplitContainer2.SplitterDistance = 436
 		Me.SplitContainer2.SplitterWidth = 10
 		Me.SplitContainer2.TabIndex = 0
 		'
@@ -171,8 +168,8 @@ Partial Class Form1
 		Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
 		Me.TableLayoutPanel2.RowCount = 2
 		Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.55224!))
-		Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 494.0!))
-		Me.TableLayoutPanel2.Size = New System.Drawing.Size(1511, 570)
+		Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 319.0!))
+		Me.TableLayoutPanel2.Size = New System.Drawing.Size(1511, 436)
 		Me.TableLayoutPanel2.TabIndex = 18
 		'
 		'FlowLayoutPanel1
@@ -188,7 +185,7 @@ Partial Class Form1
 		Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.FlowLayoutPanel1.Location = New System.Drawing.Point(3, 3)
 		Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-		Me.FlowLayoutPanel1.Size = New System.Drawing.Size(108, 70)
+		Me.FlowLayoutPanel1.Size = New System.Drawing.Size(108, 111)
 		Me.FlowLayoutPanel1.TabIndex = 12
 		'
 		'CheckBox1
@@ -269,22 +266,20 @@ Partial Class Form1
 		Me.DataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
 		Me.DataGridView3.DataSource = Me.DataSet1energy15miernikBindingSource
 		Me.DataGridView3.Dock = System.Windows.Forms.DockStyle.Fill
-		Me.DataGridView3.Location = New System.Drawing.Point(117, 79)
+		Me.DataGridView3.Location = New System.Drawing.Point(117, 120)
 		Me.DataGridView3.Name = "DataGridView3"
-		Me.DataGridView3.Size = New System.Drawing.Size(1391, 488)
+		Me.DataGridView3.Size = New System.Drawing.Size(1391, 313)
 		Me.DataGridView3.TabIndex = 21
 		'
-		'FORMULABindingSource
+		'DataSet1energy15miernikBindingSource
 		'
+		Me.DataSet1energy15miernikBindingSource.DataSource = Me.DataSet1_energy15_miernik
+		Me.DataSet1energy15miernikBindingSource.Position = 0
 		'
-		'Button4
+		'DataSet1_energy15_miernik
 		'
-		Me.Button4.Location = New System.Drawing.Point(463, 70)
-		Me.Button4.Name = "Button4"
-		Me.Button4.Size = New System.Drawing.Size(75, 23)
-		Me.Button4.TabIndex = 1
-		Me.Button4.Text = "Button4"
-		Me.Button4.UseVisualStyleBackColor = True
+		Me.DataSet1_energy15_miernik.DataSetName = "DataSet1_energy15_miernik"
+		Me.DataSet1_energy15_miernik.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
 		'
 		'DataGridView1
 		'
@@ -341,12 +336,11 @@ Partial Class Form1
 		Me.Label1.TabIndex = 12
 		Me.Label1.Text = "Label1"
 		'
+		'FORMULABindingSource
+		'
+		'
 		'Timer1
 		'
-		'
-		'FORMULATableAdapter
-		'
-		Me.FORMULATableAdapter.ClearBeforeFill = True
 		'
 		'DataSet1
 		'
@@ -357,16 +351,6 @@ Partial Class Form1
 		'
 		Me.DataSet1BindingSource.DataSource = Me.DataSet1
 		Me.DataSet1BindingSource.Position = 0
-		'
-		'DataSet1_energy15_miernik
-		'
-		Me.DataSet1_energy15_miernik.DataSetName = "DataSet1_energy15_miernik"
-		Me.DataSet1_energy15_miernik.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-		'
-		'DataSet1energy15miernikBindingSource
-		'
-		Me.DataSet1energy15miernikBindingSource.DataSource = Me.DataSet1_energy15_miernik
-		Me.DataSet1energy15miernikBindingSource.Position = 0
 		'
 		'Form1
 		'
@@ -393,15 +377,15 @@ Partial Class Form1
 		Me.FlowLayoutPanel1.PerformLayout()
 		CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
 		CType(Me.DataGridView3, System.ComponentModel.ISupportInitialize).EndInit()
-		CType(Me.FORMULABindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+		CType(Me.DataSet1energy15miernikBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+		CType(Me.DataSet1_energy15_miernik, System.ComponentModel.ISupportInitialize).EndInit()
 		CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.TableLayoutPanel1.ResumeLayout(False)
 		Me.TableLayoutPanel1.PerformLayout()
 		CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
+		CType(Me.FORMULABindingSource, System.ComponentModel.ISupportInitialize).EndInit()
 		CType(Me.DataSet1, System.ComponentModel.ISupportInitialize).EndInit()
 		CType(Me.DataSet1BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-		CType(Me.DataSet1_energy15_miernik, System.ComponentModel.ISupportInitialize).EndInit()
-		CType(Me.DataSet1energy15miernikBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.ResumeLayout(False)
 
 	End Sub
@@ -429,10 +413,9 @@ Partial Class Form1
 	Friend WithEvents Label4 As Label
 	Friend WithEvents DataGridView3 As DataGridView
 	Friend WithEvents FORMULABindingSource As BindingSource
-	Friend WithEvents Button4 As Button
 	Friend WithEvents DataSet1energy15miernikBindingSource As BindingSource
 	Friend WithEvents DataSet1_energy15_miernik As DataSet1_energy15_miernik
 	Friend WithEvents DataSet1 As Mapa1.DataSet1
 	Friend WithEvents DataSet1BindingSource As BindingSource
-	Friend WithEvents FORMULATableAdapter As Mapa1.DataSet2TableAdapters.FORMULATableAdapter
+	'Friend WithEvents FORMULATableAdapter As Mapa1.DataSet2TableAdapters.FORMULATableAdapter
 End Class

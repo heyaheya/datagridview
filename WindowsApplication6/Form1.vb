@@ -26,7 +26,7 @@ Public Class Form1
 
 	Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		'TODO: Ten wiersz kodu wczytuje dane do tabeli 'DataSet2.FORMULA' . Możesz go przenieść lub usunąć.
-		'Me.FORMULATableAdapter.Fill(Me.DataSet2.FORMULA)
+		'Me.FORMULATableAdapter.Fill(Me.DataSet1_energy15_miernik.ENERGY15_MIERNIK)
 
 
 
