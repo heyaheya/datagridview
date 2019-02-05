@@ -131,6 +131,10 @@ Public Class Form1
 
 			Dim temp_plik2 As String
 			temp_plik2 = ls(ls.Count - 1)
+
+			temp_plik2 = "esmart_ee_auto15min_2018_10_20_22_50_04.csv"
+
+
 			ListView1.Items.Add("Ostatni plik na FTP: " & temp_plik2 & Chr(13))
 
 			Dim temp_data2 As DateTime
@@ -152,8 +156,6 @@ Public Class Form1
 			Dim row As DataRow
 
 
-
-
 			line = SR.ReadLine()
 			line = line.Replace(Chr(34), String.Empty)
 			strArray = line.Split(";"c)
@@ -161,22 +163,6 @@ Public Class Form1
 			For Each s As String In strArray
 				'test_str = Mid(s, 2, Len(s) - 2)
 				dt.Columns.Add(New DataColumn(s, GetType(String)))
-
-				'w razie co select case 
-				'	nazwa				 1,00    	string
-				'	2018-10-01 00:00	 2,00    	data
-				'	2018-10-02 00:00	 3,00    	data
-				'	2018-10-01 14:35	 4,00    	data
-				'	00:00:00:00:00:00-0	 5,00    	string
-				'	kW					 6,00    	string
-				'	0					 7,00    	long
-				'	0					 8,00    	long
-				'	0					 104,00    	long
-				'	2018-10-01 00:15	 105,00    	data
-				'	0					 106,00    	long
-				'	2018-10-01 00:15	 107,00    	data
-
-
 			Next
 
 			line = SR.ReadLine
@@ -212,6 +198,47 @@ Public Class Form1
 			DataGridView1.DataSource = dt
 
 
+			'Dim data_pliku As Date
+			'Dim data_string As String
+
+			'data_string = Mid(temp_plik2, 21, 4) & "-" & Mid(temp_plik2, 26, 2) & "-" & Mid(temp_plik2, 29, 2) & " "
+			'data_string = data_string & Mid(temp_plik2, 32, 2) & ":" & Mid(temp_plik2, 35, 2) & ":"
+			'data_string = data_string & Mid(temp_plik2, 38, 2)
+
+
+
+			row = dt.Rows(1)
+
+			Dim x0 As Long
+
+			x0 = DateDiff(DateInterval.Minute, row(1), row(3))
+			x0 = (x0 / 15) + 6
+
+			'x0 = 85
+
+
+			Dim status As Boolean = True
+			Dim form_ID As Long
+
+
+			For Each row1 As DataRow In dt.Rows
+
+				form_ID = pobierz_ID_formuly(row1(0))
+
+				For i22 As Integer = 6 To x0
+					'wyszukaj ID
+					Console.WriteLine(form_ID)
+					Console.WriteLine(row1(i22))
+					Console.WriteLine(dt.Columns(i22))
+
+				Next
+			Next
+
+
+
+
+
+
 		Else
 			MsgBox("Niestety nie zostały znalezione pliki na serwerze", MsgBoxStyle.Critical, "Błąd...")
 		End If
@@ -223,6 +250,33 @@ Public Class Form1
 	End Sub
 
 
+	Function pobierz_ID_formuly(nazwa As String)
+		Select Case nazwa
+			Case "MORPOL_I"
+				pobierz_ID_formuly = 10
+			Case "MORPOL_III"
+				pobierz_ID_formuly = 11
+			Case "MORPOL_IV"
+				pobierz_ID_formuly = 12
+			Case "MORPOL_STRZELINO"
+				pobierz_ID_formuly = 13
+			Case "MORPOL_LEBORK_BIS"
+				pobierz_ID_formuly = 14
+			Case "LUBIANA"
+				pobierz_ID_formuly = 15
+			Case "DRUMET_TR1"
+				pobierz_ID_formuly = 16
+			Case "DRUMET_TR2"
+				pobierz_ID_formuly = 17
+			Case "HYDRO - VACUUM"
+				pobierz_ID_formuly = 18
+			Case "GOLPASZ"
+				pobierz_ID_formuly = 19
+			Case "MARINA_CLUB"
+				pobierz_ID_formuly = 20
+
+		End Select
+	End Function
 
 
 	Public Function ListRemoteFiles(ftpAddress As String,

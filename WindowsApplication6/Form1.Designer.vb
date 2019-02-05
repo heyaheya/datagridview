@@ -23,12 +23,12 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
 		Me.components = New System.ComponentModel.Container()
-		Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-		Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-		Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-		Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-		Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-		Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+		Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+		Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+		Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+		Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+		Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+		Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
 		Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
 		Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
 		Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
@@ -54,6 +54,7 @@ Partial Class Form1
 		Me.FORMULABindingSource = New System.Windows.Forms.BindingSource(Me.components)
 		Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
 		Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+		Me.FORMULATableAdapter = New Mapa1.DataSet2TableAdapters.FORMULATableAdapter()
 		Me.DataSet1 = New Mapa1.DataSet1()
 		Me.DataSet1BindingSource = New System.Windows.Forms.BindingSource(Me.components)
 		CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -82,36 +83,36 @@ Partial Class Form1
 		'
 		'Chart1
 		'
-		ChartArea3.Name = "ChartArea1"
-		Me.Chart1.ChartAreas.Add(ChartArea3)
-		Legend3.Alignment = System.Drawing.StringAlignment.Center
-		Legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom
-		Legend3.MaximumAutoSize = 10.0!
-		Legend3.Name = "Legend1"
-		Legend3.TitleSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.Line
-		Me.Chart1.Legends.Add(Legend3)
+		ChartArea1.Name = "ChartArea1"
+		Me.Chart1.ChartAreas.Add(ChartArea1)
+		Legend1.Alignment = System.Drawing.StringAlignment.Center
+		Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom
+		Legend1.MaximumAutoSize = 10.0!
+		Legend1.Name = "Legend1"
+		Legend1.TitleSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.Line
+		Me.Chart1.Legends.Add(Legend1)
 		Me.Chart1.Location = New System.Drawing.Point(117, 3)
 		Me.Chart1.Name = "Chart1"
-		Series3.ChartArea = "ChartArea1"
-		Series3.Legend = "Legend1"
-		Series3.Name = "Series1"
-		Me.Chart1.Series.Add(Series3)
-		Me.Chart1.Size = New System.Drawing.Size(1223, 70)
+		Series1.ChartArea = "ChartArea1"
+		Series1.Legend = "Legend1"
+		Series1.Name = "Series1"
+		Me.Chart1.Series.Add(Series1)
+		Me.Chart1.Size = New System.Drawing.Size(1223, 1)
 		Me.Chart1.TabIndex = 11
 		Me.Chart1.Text = "Chart1"
 		'
 		'Chart2
 		'
-		ChartArea4.Name = "ChartArea1"
-		Me.Chart2.ChartAreas.Add(ChartArea4)
-		Legend4.Name = "Legend1"
-		Me.Chart2.Legends.Add(Legend4)
+		ChartArea2.Name = "ChartArea1"
+		Me.Chart2.ChartAreas.Add(ChartArea2)
+		Legend2.Name = "Legend1"
+		Me.Chart2.Legends.Add(Legend2)
 		Me.Chart2.Location = New System.Drawing.Point(290, 3)
 		Me.Chart2.Name = "Chart2"
-		Series4.ChartArea = "ChartArea1"
-		Series4.Legend = "Legend1"
-		Series4.Name = "Series1"
-		Me.Chart2.Series.Add(Series4)
+		Series2.ChartArea = "ChartArea1"
+		Series2.Legend = "Legend1"
+		Series2.Name = "Series1"
+		Me.Chart2.Series.Add(Series2)
 		Me.Chart2.Size = New System.Drawing.Size(879, 240)
 		Me.Chart2.TabIndex = 12
 		Me.Chart2.Text = "Chart2"
@@ -131,7 +132,7 @@ Partial Class Form1
 		'
 		Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel1)
 		Me.SplitContainer1.Size = New System.Drawing.Size(1515, 767)
-		Me.SplitContainer1.SplitterDistance = 671
+		Me.SplitContainer1.SplitterDistance = 364
 		Me.SplitContainer1.TabIndex = 13
 		'
 		'SplitContainer2
@@ -150,8 +151,8 @@ Partial Class Form1
 		Me.SplitContainer2.Panel2.Controls.Add(Me.DataGridView1)
 		Me.SplitContainer2.Panel2.Enabled = False
 		Me.SplitContainer2.Panel2MinSize = 0
-		Me.SplitContainer2.Size = New System.Drawing.Size(1511, 667)
-		Me.SplitContainer2.SplitterDistance = 436
+		Me.SplitContainer2.Size = New System.Drawing.Size(1511, 360)
+		Me.SplitContainer2.SplitterDistance = 249
 		Me.SplitContainer2.SplitterWidth = 10
 		Me.SplitContainer2.TabIndex = 0
 		'
@@ -168,8 +169,8 @@ Partial Class Form1
 		Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
 		Me.TableLayoutPanel2.RowCount = 2
 		Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.55224!))
-		Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 319.0!))
-		Me.TableLayoutPanel2.Size = New System.Drawing.Size(1511, 436)
+		Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 494.0!))
+		Me.TableLayoutPanel2.Size = New System.Drawing.Size(1511, 249)
 		Me.TableLayoutPanel2.TabIndex = 18
 		'
 		'FlowLayoutPanel1
@@ -185,7 +186,7 @@ Partial Class Form1
 		Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.FlowLayoutPanel1.Location = New System.Drawing.Point(3, 3)
 		Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-		Me.FlowLayoutPanel1.Size = New System.Drawing.Size(108, 111)
+		Me.FlowLayoutPanel1.Size = New System.Drawing.Size(108, 1)
 		Me.FlowLayoutPanel1.TabIndex = 12
 		'
 		'CheckBox1
@@ -265,10 +266,9 @@ Partial Class Form1
 		Me.DataGridView3.AutoGenerateColumns = False
 		Me.DataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
 		Me.DataGridView3.DataSource = Me.DataSet1energy15miernikBindingSource
-		Me.DataGridView3.Dock = System.Windows.Forms.DockStyle.Fill
-		Me.DataGridView3.Location = New System.Drawing.Point(117, 120)
+		Me.DataGridView3.Location = New System.Drawing.Point(117, -242)
 		Me.DataGridView3.Name = "DataGridView3"
-		Me.DataGridView3.Size = New System.Drawing.Size(1391, 313)
+		Me.DataGridView3.Size = New System.Drawing.Size(1389, 115)
 		Me.DataGridView3.TabIndex = 21
 		'
 		'DataSet1energy15miernikBindingSource
@@ -341,6 +341,10 @@ Partial Class Form1
 		'
 		'Timer1
 		'
+		'
+		'FORMULATableAdapter
+		'
+		Me.FORMULATableAdapter.ClearBeforeFill = True
 		'
 		'DataSet1
 		'
@@ -417,5 +421,5 @@ Partial Class Form1
 	Friend WithEvents DataSet1_energy15_miernik As DataSet1_energy15_miernik
 	Friend WithEvents DataSet1 As Mapa1.DataSet1
 	Friend WithEvents DataSet1BindingSource As BindingSource
-	'Friend WithEvents FORMULATableAdapter As Mapa1.DataSet2TableAdapters.FORMULATableAdapter
+	Friend WithEvents FORMULATableAdapter As Mapa1.DataSet2TableAdapters.FORMULATableAdapter
 End Class
