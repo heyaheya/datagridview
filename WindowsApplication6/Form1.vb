@@ -55,19 +55,19 @@ Public Class Form1
 		Timer1.Start() 'Timer starts functioning
 		ListView1.Items.Add("Czas start" & Chr(13))
 
-		'Call Wykresy()
+		Call Wykresy()
 		ListView1.Items.Add("Uruchom wykresy" & Chr(13))
 
-		SplitContainer1.Dock = DockStyle.Fill
-		SplitContainer2.Dock = DockStyle.Fill
+		'SplitContainer1.Dock = DockStyle.Fill
+		'SplitContainer2.Dock = DockStyle.Fill
 
-		Label1.Dock = DockStyle.Top
-		DataGridView1.Dock = DockStyle.Fill
+		'Label1.Dock = DockStyle.Top
+		'DataGridView1.Dock = DockStyle.Fill
 
 
-		SplitContainer2.Panel2.Visible = False
+		'SplitContainer2.Panel2.Visible = False
 
-		SplitContainer2.SplitterDistance = SplitContainer2.Height
+		'SplitContainer2.SplitterDistance = SplitContainer2.Height
 
 
 
@@ -132,7 +132,7 @@ Public Class Form1
 			Dim temp_plik2 As String
 			temp_plik2 = ls(ls.Count - 1)
 
-			temp_plik2 = "esmart_ee_auto15min_2018_10_20_22_50_04.csv"
+			'temp_plik2 = "esmart_ee_auto15min_2018_10_20_22_50_04.csv"
 
 
 			ListView1.Items.Add("Ostatni plik na FTP: " & temp_plik2 & Chr(13))
@@ -233,8 +233,6 @@ Public Class Form1
 
 				Next
 			Next
-
-
 
 
 
@@ -549,7 +547,7 @@ Public Class Form1
 		'o_chart.Width = i_szeroksc
 		' o_chart.Height = i_wysokosc
 
-		o_chart.Dock = DockStyle.Fill
+		'o_chart.Dock = DockStyle.Fill
 
 
 	End Sub
@@ -622,22 +620,20 @@ Public Class Form1
 		Dim cmd As New OracleCommand
 		cmd.Connection = conn
 
-		If conn.State Then
-
-
+		If Not conn.State Then
+			Label2.Text = "Connection is close"
+		Else
 			Label2.Text = "Connection is Open"
 
-		Else
-
-			Label2.Text = "Connection is close"
-
-		End If
 
 
 
 
 
-		sql = ""
+
+
+
+			sql = ""
 		sql = sql & "  SELECT SUM (Prognoza)           AS " & Chr(34) & "Prognoza" & Chr(34) & ","
 		sql = sql & "         SUM (Wykonanie)          AS " & Chr(34) & "Wykonanie" & Chr(34) & ","
 		sql = sql & "         SUM (Prognoza - Wykonanie) As " & Chr(34) & "Odchylenie" & Chr(34) & ","
@@ -715,7 +711,11 @@ Public Class Form1
 
 		End While
 
-		'DataGridView1.DataSource = matrix
+			'DataGridView1.DataSource = matrix
+
+
+
+		End If
 
 		cmd.Dispose()
 		conn.Dispose()
@@ -733,23 +733,23 @@ Public Class Form1
 
 	Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
 		If CheckBox1.Checked = False Then
-			SplitContainer2.Panel2.Visible = False
-			SplitContainer2.SplitterDistance = SplitContainer2.Height
+			'SplitContainer2.Panel2.Visible = False
+			'SplitContainer2.SplitterDistance = SplitContainer2.Height
 			CheckBox1.Text = "Wyświetl dane"
 
 			'SplitContainer2.Panel1.Height = SplitContainer2.Height
 			'SplitContainer2.Panel2.Height = 0
 
-			SplitContainer2.Panel2Collapsed = True
+			'SplitContainer2.Panel2Collapsed = True
 
 		Else
-			SplitContainer2.Panel2.Visible = True
-			SplitContainer2.SplitterDistance = SplitContainer2.Height / 2
+			'SplitContainer2.Panel2.Visible = True
+			'SplitContainer2.SplitterDistance = SplitContainer2.Height / 2
 			CheckBox1.Text = "Ukryj dane"
 			'SplitContainer2.Panel1.Height = SplitContainer2.Height / 2
 			'SplitContainer2.Panel2.Height = SplitContainer2.Height / 2
 
-			SplitContainer2.Panel2Collapsed = False
+			'SplitContainer2.Panel2Collapsed = False
 
 		End If
 	End Sub
